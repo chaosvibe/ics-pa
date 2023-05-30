@@ -98,6 +98,11 @@ static bool make_token(char *e) {
 
 
 word_t expr(char *e, bool *success) {
+  //TODO: 这里现在简单的用字符串转数字
+  word_t addr = 0;
+  *success = sscanf(e, "%x", &addr);
+  return addr;
+
   if (!make_token(e)) {
     *success = false;
     return 0;
