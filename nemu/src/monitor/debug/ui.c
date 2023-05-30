@@ -99,6 +99,10 @@ static int scan_mem_expr(char *args) {
   for (int i = 0; i < 3; i++)
   {
       char *arg = strtok(args, " ");
+      if (arg == NULL || strlen(arg) == 0) {
+        break;
+      }
+      
       if (i == 0)
       {
         N = atoi(arg);
