@@ -41,8 +41,38 @@ void reg_test() {
   assert(pc_sample == cpu.pc);
 }
 
+#define PRINT_REG_4(reg_param)  printf("%s: [%d], [%X]", reg_name(reg_param, 4), reg_l(reg_param), reg_l(reg_param))
+#define PRINT_REG_2(reg_param)  printf("%s: [%d], [%X]", reg_name(reg_param, 2), reg_w(reg_param), reg_w(reg_param))
+#define PRINT_REG_1(reg_param)  printf("%s: [%d], [%X]", reg_name(reg_param, 1), reg_b(reg_param), reg_b(reg_param))
+
+
 void isa_reg_display() {
-  printf("fuck fuck fuck");
+  printf("%s: [%d], [%X]", reg_name(R_EAX, 4), reg_l(R_EAX), reg_l(R_EAX));
+  printf("%s: [%d], [%X]", reg_name(R_ECX, 4), reg_l(R_ECX), reg_l(R_ECX));
+  printf("%s: [%d], [%X]", reg_name(R_EDX, 4), reg_l(R_EDX), reg_l(R_EDX));
+  printf("%s: [%d], [%X]", reg_name(R_EBX, 4), reg_l(R_EBX), reg_l(R_EBX));
+  printf("%s: [%d], [%X]", reg_name(R_ESP, 4), reg_l(R_ESP), reg_l(R_ESP));
+  printf("%s: [%d], [%X]", reg_name(R_EBP, 4), reg_l(R_EBP), reg_l(R_EBP));
+  printf("%s: [%d], [%X]", reg_name(R_ESI, 4), reg_l(R_ESI), reg_l(R_ESI));
+  printf("%s: [%d], [%X]", reg_name(R_EDI, 4), reg_l(R_EDI), reg_l(R_EDI));
+
+  printf("%s: [%d], [%X]", reg_name(R_AX, 2), reg_w(R_AX), reg_w(R_AX));
+  printf("%s: [%d], [%X]", reg_name(R_CX, 2), reg_w(R_CX), reg_w(R_CX));
+  printf("%s: [%d], [%X]", reg_name(R_DX, 2), reg_w(R_DX), reg_w(R_DX));
+  printf("%s: [%d], [%X]", reg_name(R_BX, 2), reg_w(R_BX), reg_w(R_BX));
+  printf("%s: [%d], [%X]", reg_name(R_SP, 2), reg_w(R_SP), reg_w(R_SP));
+  printf("%s: [%d], [%X]", reg_name(R_BP, 2), reg_w(R_BP), reg_w(R_BP));
+  printf("%s: [%d], [%X]", reg_name(R_SI, 2), reg_w(R_SI), reg_w(R_SI));
+  printf("%s: [%d], [%X]", reg_name(R_DI, 2), reg_w(R_DI), reg_w(R_DI));
+
+  PRINT_REG_1(R_AL);
+  PRINT_REG_1(R_CL);
+  PRINT_REG_1(R_DL);
+  PRINT_REG_1(R_BL);
+  PRINT_REG_1(R_AH);
+  PRINT_REG_1(R_CH);
+  PRINT_REG_1(R_DH);
+  PRINT_REG_1(R_BH);
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {

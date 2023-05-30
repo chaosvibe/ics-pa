@@ -62,6 +62,13 @@ static struct {
 #define PRINT_SUBCMD_SIZE (sizeof(print_subcmds) / sizeof(print_subcmds[0]))
 
 static int print_status(char *args) {
+  if (args == NULL) 
+  {
+    printf("sub command cannot be empty\n");
+    return 0;
+  }
+  
+
   int i;
   for (i = 0; i < PRINT_SUBCMD_SIZE; i++)
   {
@@ -72,7 +79,9 @@ static int print_status(char *args) {
     }
   }
 
-  if (i == PRINT_SUBCMD_SIZE) { printf("Unknown print sub command '%s'\n", args); }
+  if (i == PRINT_SUBCMD_SIZE) {
+    printf("Unknown print sub command '%s'\n", args); 
+  }
   
   return 0;
 }
