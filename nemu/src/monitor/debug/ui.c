@@ -96,18 +96,11 @@ static int scan_mem_expr(char *args) {
   
   int N = 1;
   char *expr_str = "";
-  for (int i = 0; i < 3; i++)
-  {
-    char *arg = strtok(args, " ");
-    if (arg == NULL || strlen(arg) == 0) {
-      if (i < 1)
-      {
-        printf("scan memory only accept two param, empty or only one param is not valid\n");
-      }
-      
-      break;
-    }
-    
+  char *arg;
+  char *sep = " ";
+  int i = 0;
+  for (arg = strtok(args, sep); arg != NULL; arg = strtok(NULL, sep))
+  { 
     if (i == 0)
     {
       N = atoi(arg);
@@ -121,7 +114,10 @@ static int scan_mem_expr(char *args) {
       printf("scan memory only accept two param, '[%s]' is not valid\n", arg);
       return 0;
     }
+
+    i++;
   }
+  
   bool success;
   word_t expr_value = expr(expr_str, &success);
   if (success) {
