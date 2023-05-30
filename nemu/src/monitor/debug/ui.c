@@ -41,8 +41,39 @@ static int cmd_n(char *args) {
   if (args == NULL) {
     cpu_exec(1);
   } else {
+    if (atoi(args) == 0) {
+      printf("The N step must be integers, and cannot be '%s'\n", args);
+      return 0;
+    }
+    
     cpu_exec(atoi(args));
   }
+  return 0;
+}
+
+static struct {
+  char *subcmd;
+  void (*handler) ();
+} print_subcmds[] = {
+  { "r", isa_reg_display },
+  { "w", },
+};
+
+#define PRINT_SUBCMD_SIZE (sizeof(print_subcmds) / sizeof(print_subcmds[0]))
+
+static int print_status(char *args) {
+  int i;
+  for (i = 0; i < PRINT_SUBCMD_SIZE; i++)
+  {
+    if (strcmp(args, print_subcmds[i].subcmd) == 0) 
+    {
+      print_subcmds[i].handler();
+      break;
+    }
+  }
+
+  if (i == PRINT_SUBCMD_SIZE) { printf("Unknown print sub command '%s'\n", args); }
+  
   return 0;
 }
 
@@ -59,7 +90,7 @@ static struct {
 
   /* TODO: Add more commands */
   { "si", "Make program run by steps N", cmd_n},
-
+  { "info", "Print the information depend on the SUBCMD, r for registers and w for watchpoints", print_status},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
