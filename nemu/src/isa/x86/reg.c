@@ -45,7 +45,6 @@ void reg_test() {
 #define PRINT_REG_2(reg_param)  printf("%s: [%d], [%X]\n", reg_name(reg_param, 2), reg_w(reg_param), reg_w(reg_param))
 #define PRINT_REG_1(reg_param)  printf("%s: [%d], [%X]\n", reg_name(reg_param, 1), reg_b(reg_param), reg_b(reg_param))
 
-
 void isa_reg_display() {
   PRINT_REG_4(R_EAX);
   PRINT_REG_4(R_ECX);
