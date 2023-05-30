@@ -88,6 +88,12 @@ static int print_status(char *args) {
 }
 
 static int scan_mem_expr(char *args) {
+  if (args == NULL || strlen(args) == 0)
+  {
+    printf("scan memory only accept two param, empty is not valid\n");
+    return 0;
+  }
+  
   int N;
   char *expr_str;
   for (int i = 0; i < 3; i++)
@@ -98,8 +104,12 @@ static int scan_mem_expr(char *args) {
         N = atoi(arg);
       } else if (i == 1) {
         expr_str = arg;
+        if (expr_str == NULL || strlen(expr_str) == 0) {
+          printf("scan memory only accept two param, the second param expr cannot be empty\n");
+          return 0;
+        }
       } else if (i == 2) {
-        printf("scan memory only accept two param, '[%s]' is valid\n", arg);
+        printf("scan memory only accept two param, '[%s]' is not valid\n", arg);
         return 0;
       }
   }
