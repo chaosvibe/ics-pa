@@ -86,6 +86,33 @@ static int print_status(char *args) {
   return 0;
 }
 
+static int scan_mem_expr(char *args) {
+  int N;
+  char *expr_str;
+  for (int i = 0; i < 3; i++)
+  {
+      char *arg = strtok(args, " ");
+      if (i == 0)
+      {
+        N = atoi(arg);
+      } else if (i == 1) {
+        expr_str = arg;
+      } else if (i == 2) {
+        printf("scan memory only accept two param, '[%s]' is valid\n", arg);
+        return 0;
+      }
+  }
+  bool success;
+  word_t expr_value = expr(expr_str, &success);
+  if (success) {
+    print_N_by_paddr(expr_value, N, 4);
+  } else {
+    printf("expr: [%s] parse failed", expr_str);
+  }
+    
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -100,6 +127,7 @@ static struct {
   /* TODO: Add more commands */
   { "si", "Make program run by steps N", cmd_n},
   { "info", "Print the information depend on the SUBCMD, r for registers and w for watchpoints", print_status},
+  { "x", "Scan the memory, for example [x N EXPR]", scan_mem_expr}
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))

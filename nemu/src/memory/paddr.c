@@ -92,3 +92,14 @@ def_vaddr_template(4)
 #ifdef ISA64
 def_vaddr_template(8)
 #endif
+
+//根据起始地址，每len字节打印N个
+void print_N_by_paddr(paddr_t addr, int N, int len) {
+  for (int i = 0; i < N; i++)
+  {
+    word_t value = pmem_read(addr, len);
+    printf("[%d]: %X -- %d", i, value, value);
+    addr += len * 8;
+  }
+}
+

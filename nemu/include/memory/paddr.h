@@ -12,5 +12,5 @@ paddr_t host_to_guest(void *addr);
 
 word_t paddr_read(paddr_t addr, int len);
 void paddr_write(paddr_t addr, word_t data, int len);
-
+void print_N_by_paddr(paddr_t addr, int N, int len); //根据起始地址，每len字节打印N个
 #endif
