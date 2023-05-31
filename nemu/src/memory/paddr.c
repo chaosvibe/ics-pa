@@ -99,7 +99,7 @@ void print_N_by_paddr(paddr_t addr, int N, int len) {
   {
     word_t value = pmem_read(addr, len);
     printf("[no.%d, addr:%x]: %X -- %d\n", i, addr, value, value);
-    addr += len * 8;
+    addr += len;
   }
 }
 
