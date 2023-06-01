@@ -9,7 +9,7 @@ enum {
   TK_NOTYPE = 256, TK_EQ,
 
   /* TODO: Add more token types */
-
+  LEFT_PARENTHESIS, RIGHT_PARENTHESIS,NUMBER,
 };
 
 static struct rule {
@@ -24,6 +24,13 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
+
+  {"\\-", '-'},
+  {"\\*", '*'},
+  {"\\/", '/'},
+  {"[0-9]+", NUMBER},
+  {"\\(", LEFT_PARENTHESIS},
+  {"\\)", RIGHT_PARENTHESIS},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -53,7 +60,7 @@ typedef struct token {
 } Token;
 
 static Token tokens[32] __attribute__((used)) = {};
-static int nr_token __attribute__((used))  = 0;
+static int nr_token __attribute__((used))  = 0; //当前已经识别出的token个数
 
 static bool make_token(char *e) {
   int position = 0;
@@ -78,9 +85,14 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-
         switch (rules[i].token_type) {
-          default: TODO();
+          // default: TODO();
+          case NUMBER: 
+            char var[substr_len+1];
+            strncpy(var, e + position, substr_len);
+            var[substr_len] = '\0';
+            tokens[nr_token++] = {NUMBER, var};break;
+          default: tokens[nr_token++] = {rules[i].token_type};
         }
 
         break;
@@ -98,11 +110,6 @@ static bool make_token(char *e) {
 
 
 word_t expr(char *e, bool *success) {
-  //TODO: 这里现在简单的用字符串转数字
-  word_t addr = 0;
-  *success = sscanf(e, "%x", &addr);
-  return addr;
-
   if (!make_token(e)) {
     *success = false;
     return 0;

@@ -119,7 +119,11 @@ static int scan_mem_expr(char *args) {
   }
   
   bool success;
-  word_t expr_value = expr(expr_str, &success);
+  word_t addr = 0;
+  *success = sscanf(e, "%x", &addr);
+  //TODO: 这里之后要替换成利用表达式求值
+  word_t expr_value = addr;
+
   if (success) {
     print_N_by_paddr(expr_value, N, 4);
   } else {
@@ -127,6 +131,16 @@ static int scan_mem_expr(char *args) {
   }
     
   return 0;
+}
+
+static int get_expr_value(char *args) {
+  bool success;
+  word_t expr_value = expr(args, &success);
+  if (!success) {
+    printf("[%s] parse failed!", args);
+  } else {
+    printf("%d", expr_value);
+  }
 }
 
 static int cmd_help(char *args);
@@ -143,7 +157,8 @@ static struct {
   /* TODO: Add more commands */
   { "si", "Make program run by steps N", cmd_n},
   { "info", "Print the information depend on the SUBCMD, r for registers and w for watchpoints", print_status},
-  { "x", "Scan the memory, for example [x N EXPR]", scan_mem_expr}
+  { "x", "Scan the memory, for example [x N EXPR]", scan_mem_expr},
+  { "p", "Get the expr's value", get_expr_value},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
