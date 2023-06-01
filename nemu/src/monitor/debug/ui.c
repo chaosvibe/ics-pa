@@ -120,7 +120,7 @@ static int scan_mem_expr(char *args) {
   
   bool success;
   word_t addr = 0;
-  *success = sscanf(e, "%x", &addr);
+  success = sscanf(expr_str, "%x", &addr);
   //TODO: 这里之后要替换成利用表达式求值
   word_t expr_value = addr;
 
