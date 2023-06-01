@@ -141,6 +141,8 @@ static int get_expr_value(char *args) {
   } else {
     printf("%d", expr_value);
   }
+
+  return 0;
 }
 
 static int cmd_help(char *args);
