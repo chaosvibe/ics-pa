@@ -87,12 +87,16 @@ static bool make_token(char *e) {
          */
         switch (rules[i].token_type) {
           // default: TODO();
-          case NUMBER: 
+          case NUMBER: {
             char var[substr_len+1];
             strncpy(var, e + position, substr_len);
             var[substr_len] = '\0';
-            tokens[nr_token++] = {NUMBER, var};break;
-          default: tokens[nr_token++] = {rules[i].token_type};
+            tokens[nr_token].type = NUMBER;
+            tokens[nr_token].str = var;
+            nr_token++;
+            break;
+          }
+          default: tokens[nr_token++].type = rules[i].token_type;
         }
 
         break;
